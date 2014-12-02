@@ -1,0 +1,23 @@
+{
+  "name": "ddm-rating-stars",
+  "homepage": "https://github.com/deseretdigital-ui/ddm-rating-stars",
+  "authors": [
+    "Joshua Stoutenburg <jehoshua02@gmail.com>",
+    "Kate Bratko"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "gulp",
+    "gulpfile.js",
+    "src"
+  ],
+  "main": "dist/RatingStars.js",
+  "dependencies": {
+    "react": "~0.12.1"
+  }
+}

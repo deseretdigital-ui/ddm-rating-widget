@@ -2,7 +2,7 @@
   "name": "ddm-rating-stars",
   "version": "0.0.1",
   "description": "A tiny React component for rating stars.",
-  "main": "index.js",
+  "main": "dist/RatingStars.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,15 @@
   },
   "homepage": "https://github.com/deseretdigital-ui/ddm-rating-stars",
   "devDependencies": {
-    "gulp": "^3.8.10"
+    "autoprefixer-loader": "^1.0.0",
+    "css-loader": "^0.9.0",
+    "gulp": "^3.8.10",
+    "gulp-webpack": "^1.1.0",
+    "jsx-loader": "^0.12.2",
+    "react": "^0.12.1",
+    "require-dir": "^0.1.0",
+    "sass-loader": "^0.3.1",
+    "style-loader": "^0.8.2",
+    "webpack": "^1.4.13"
   }
 }
