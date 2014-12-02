@@ -1,0 +1,22 @@
+{
+  "name": "ddm-rating-stars",
+  "version": "0.0.1",
+  "description": "A tiny React component for rating stars.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deseretdigital-ui/ddm-rating-stars.git"
+  },
+  "author": "Kate Bratko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/deseretdigital-ui/ddm-rating-stars/issues"
+  },
+  "homepage": "https://github.com/deseretdigital-ui/ddm-rating-stars",
+  "devDependencies": {
+    "gulp": "^3.8.10"
+  }
+}
