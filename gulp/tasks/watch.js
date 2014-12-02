@@ -1,11 +1,6 @@
 var gulp = require('gulp');
-var webpack = require('gulp-webpack');
-var webpackConfig = require('../../webpack.config');
+var webpack = require('../util/webpack');
 
 gulp.task('watch', ['build'], function() {
-  webpackConfig.watch = true;
-  return gulp.src('./src/index.js')
-    .pipe(webpack(webpackConfig))
-    .pipe(gulp.dest('./dist'))
-    .pipe(gulp.dest('./example'));
+  return webpack({ watch: true });
 });
