@@ -1,3 +1,3 @@
-# ddm-rating-stars
+# DDM Rating Widget
 
-A tiny React component for rating stars.
+A tiny React component for a rating widget.

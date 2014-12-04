@@ -1,2 +1,2 @@
 require('./scss/styles.scss');
-module.exports.RatingStars = require('./components/RatingStars');
+module.exports.RatingWidget = require('./components/RatingWidget');

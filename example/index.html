@@ -14,19 +14,41 @@
   <script src="https://fb.me/JSXTransformer-0.12.0.js"></script>
   <script src="RatingStars.js"></script>
 
+  <script>
+    function announceRating(rating) {
+      console.log("You got " + rating + " stars!");
+    }
+  </script>
 </head>
 <body>
 
   <h1>Rating Stars Examples</h1>
 
   <div class="example">
-    <h2>Rating Stars</h2>
-    <div id="react-example-1"></div>
+    <h2>Whole Stars</h2>
+    <div id="wholeStars"></div>
+
+    <h2>Half Stars</h2>
+    <div id="halfStars"></div>
+
+    <h2>No Hover Whole Stars</h2>
+    <div id="noHoverStars"></div>
+
     <script type="text/jsx">
-    React.render(
-      <RatingStars />,
-      document.getElementById('react-example-1')
-    );
+      React.render(
+        <RatingWidget size="5" onRate={announceRating} disabled={false} initialRating="2.9" halfRating={false} />,
+        document.getElementById('wholeStars')
+      );
+
+      React.render(
+        <RatingWidget size="10" onRate={announceRating} disabled={false} initialRating="2.9" halfRating={true} />,
+        document.getElementById('halfStars')
+      );
+
+      React.render(
+        <RatingWidget size="5" onRate={announceRating} disabled={false} initialRating="2.9" halfRating={false} hover={false} />,
+        document.getElementById('noHoverStars')
+      );
     </script>
   </div>
 

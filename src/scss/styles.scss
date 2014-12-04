@@ -1,24 +1,29 @@
-$starDefault: #9F9F9F;
-$starActive: #FA9E49;
-$starWidth: 16px;
+$stepDefault: #9F9F9F;
+$stepActive: #FA9E49;
+$stepHover: #2354ac;
+$stepWidth: 16px;
 
-.ddm-rating-stars .ddm-rating-star {
+.ddm-rating-widget {
+  display: inline-block;
+}
+
+.ddm-rating-widget__step {
   position: relative;
   display: inline-block;
   margin-right: 2px;
   height: 24px;
-  width: 16px;
+  width: $stepWidth;
 
   &:before {
     content: '\2605';
-    color: $starActive;
+    color: $stepActive;
     z-index: 2;
     width: 0;
   }
 
   &:after {
     content: '\2605';
-    color: $starDefault;
+    color: $stepDefault;
     z-index: 1;
   }
 
@@ -29,12 +34,18 @@ $starWidth: 16px;
     top: 0;
     overflow: hidden;
   }
+}
 
-  &.ddm-rating-star--fill:before {
-    width: 100%;
+.ddm-rating-widget__step--hover {
+  &:before {
+    color: $stepHover !important;
   }
+}
 
-  &.ddm-rating-star--half:before {
-    width: 50%;
-  }
+.ddm-rating-widget__step--whole:before {
+  width: 100%;
+}
+
+.ddm-rating-widget__step--half:before {
+  width: 50%;
 }
