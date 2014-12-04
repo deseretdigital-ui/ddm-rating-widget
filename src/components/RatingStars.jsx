@@ -4,64 +4,41 @@ module.exports = React.createClass({ displayName: 'RatingStars',
 
   getDefaultProps: function () {
     return {
-      rating: 0
+      size: 5
     }
   },
 
-  handleClick: function (event) {
-    var self = this.getDOMNode();
-    var clickPos = event.pageX - self.offsetLeft;
-    var elWidth = self.offsetWidth;
+  handleClick: function (index) {
+    var element = this.getDOMNode();
+    var childArr = element.childNodes;
 
-    if (clickPos >= 0 && clickPos <= 7){
-      this.setState({rating:this.props.rating = 0.5})
-    } else if (clickPos >=8 && clickPos <= 16) {
-      this.setState({rating:this.props.rating = 1})
-    } else if (clickPos >=17 && clickPos <= 26) {
-      this.setState({rating:this.props.rating = 1.5})
-    } else if (clickPos >=27 && clickPos <= 33) {
-      this.setState({rating:this.props.rating = 2})
-    } else if (clickPos >=34 && clickPos <= 44) {
-      this.setState({rating:this.props.rating = 2.5})
-    } else if (clickPos >=45 && clickPos <= 51) {
-      this.setState({rating:this.props.rating = 3})
-    } else if (clickPos >=52 && clickPos <= 62) {
-      this.setState({rating:this.props.rating = 3.5})
-    } else if (clickPos >=63 && clickPos <= 70) {
-      this.setState({rating:this.props.rating = 4})
-    } else if (clickPos >=71 && clickPos <= 80) {
-      this.setState({rating:this.props.rating = 4.5})
-    } else if (clickPos >=81 && clickPos <= 88) {
-      this.setState({rating:this.props.rating = 5})
+    for (var i = 0; i < childArr.length; i++) {
+      childArr[i].onclick = function () {
+        var elWidth = this.offsetWidth;
+        var halfWidth = elWidth / 2;
+        var clickPos = event.pageX - this.offsetLeft;
+
+        console.log(this.previousSiblings)
+        if (clickPos <= halfWidth) {
+          this.className = 'ddm-rating-star ddm-rating-star--half';
+        } else {
+          this.className = 'ddm-rating-star ddm-rating-star--fill';
+        }
+      }
     }
-  },
-
-  getClasses: function () {
-    var classes = {
-      'ddm-rating-stars': true,
-      'ddm-rating-stars--0': this.props.rating === 0,
-      'ddm-rating-stars--0-5': this.props.rating === 0.5,
-      'ddm-rating-stars--1': this.props.rating === 1,
-      'ddm-rating-stars--1-5': this.props.rating === 1.5,
-      'ddm-rating-stars--2': this.props.rating === 2,
-      'ddm-rating-stars--2-5': this.props.rating === 2.5,
-      'ddm-rating-stars--3': this.props.rating === 3,
-      'ddm-rating-stars--3-5': this.props.rating === 3.5,
-      'ddm-rating-stars--4': this.props.rating === 4,
-      'ddm-rating-stars--4-5': this.props.rating === 4.5,
-      'ddm-rating-stars--5': this.props.rating === 5
-    };
-
-    return [
-      React.addons.classSet(classes),
-      this.props.className
-    ].join(' ');
-
   },
 
   render: function () {
+    var stars = [];
+
+    for (var i = 1; i <= this.props.size; i++) {
+      stars.push(<span className="ddm-rating-star" onClick={this.handleClick}></span>);
+    }
+
     return (
-      <span className={this.getClasses()} onClick={this.handleClick}></span>
+      <div className="ddm-rating-stars">
+        {stars}
+      </div>
     );
   }
 });
