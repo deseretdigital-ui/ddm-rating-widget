@@ -1,5 +1,40 @@
-$bg: blue;
+$starDefault: #9F9F9F;
+$starActive: #FA9E49;
+$starWidth: 16px;
 
-body {
-  background-color: $bg;
+.ddm-rating-stars .ddm-rating-star {
+  position: relative;
+  display: inline-block;
+  margin-right: 2px;
+  height: 24px;
+  width: 16px;
+
+  &:before {
+    content: '\2605';
+    color: $starActive;
+    z-index: 2;
+    width: 0;
+  }
+
+  &:after {
+    content: '\2605';
+    color: $starDefault;
+    z-index: 1;
+  }
+
+  &:before,
+  &:after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+  }
+
+  &.ddm-rating-star--fill:before {
+    width: 100%;
+  }
+
+  &.ddm-rating-star--half:before {
+    width: 50%;
+  }
 }
