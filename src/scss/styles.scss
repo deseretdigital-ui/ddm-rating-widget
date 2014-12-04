@@ -1,5 +1,75 @@
-$bg: blue;
+$starDefault: #9F9F9F;
+$starActive: #FA9E49;
+$starWidth: 16px;
 
-body {
-  background-color: $bg;
+.ddm-rating-stars {
+  position: relative;
+  display: inline-block;
+  height: 24px;
+  width: 88px;
+
+  &:before {
+    content: '\2605\2605\2605\2605\2605';
+    color: $starActive;
+    z-index: 2;
+  }
+
+  &:after {
+    content: '\2605\2605\2605\2605\2605';
+    color: $starDefault;
+    z-index: 1;
+  }
+
+  &:before,
+  &:after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    letter-spacing: 2px;
+  }
+
+  &.ddm-rating-stars--0:before {
+    width: 0;
+  }
+
+  &.ddm-rating-stars--0-5:before {
+    width: 8px;
+  }
+
+  &.ddm-rating-stars--1:before {
+    width: 16px;
+  }
+
+  &.ddm-rating-stars--1-5:before {
+    width: 26px;
+  }
+
+  &.ddm-rating-stars--2:before {
+    width: 33px;
+  }
+
+  &.ddm-rating-stars--2-5:before {
+    width: 44px;
+  }
+
+  &.ddm-rating-stars--3:before {
+    width: 51px;
+  }
+
+  &.ddm-rating-stars--3-5:before {
+    width: 62px;
+  }
+
+  &.ddm-rating-stars--4:before {
+    width: 70px;
+  }
+
+  &.ddm-rating-stars--4-5:before {
+    width: 80px;
+  }
+
+  &.ddm-rating-stars--5:before {
+    width: 88px;
+  }
 }
