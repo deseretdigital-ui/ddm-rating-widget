@@ -1,41 +1,55 @@
 var React = require('react/addons');
 
+var cx = React.addons.classSet;
+var supportsTouchEvents = require('../utils/supportsTouchEvents');
 var emptyFunction = function() {};
 
 var RatingWidget = React.createClass({
   propTypes: {
     size: React.PropTypes.number,
     onRate: React.PropTypes.func,
-    disabled: React.PropTypes.bool,
+    startDisabled: React.PropTypes.bool,
     initialRating: React.PropTypes.number,
     halfRating: React.PropTypes.bool,
     hover: React.PropTypes.bool,
+    className: React.PropTypes.string
   },
 
   getDefaultProps: function () {
     return {
       size: 5,
       onRate: emptyFunction,
-      disabled: false,
+      startDisabled: false,
       initialRating: 0,
       halfRating: false,
       hover: true,
+      className: ''
     }
   },
 
   getInitialState: function() {
     return {
       rating: this.props.initialRating,
-      tempRating: null
+      tempRating: null,
+      disabled: this.props.startDisabled,
+      supportsTouchEvents: supportsTouchEvents()
     }
   },
 
+  disable: function() {
+    this.setState({'disabled': true});
+  },
+
+  enable: function() {
+    this.setState({'disabled': false});
+  },
+
   handleClick: function(newRating, e) {
-    if (this.props.disabled) {
+    if (this.state.disabled) {
       return;
     }
 
-    newRating = this.calchalfRating(newRating, e);
+    newRating = this.calcHalfRating(newRating, e);
     if (newRating === this.state.rating) {
       newRating = 0;
     }
@@ -46,15 +60,11 @@ var RatingWidget = React.createClass({
   },
 
   handleOnMouseMove: function(newTempRating, e) {
-    if (this.props.disabled) {
+    if (this.state.disabled || !this.props.hover) {
       return;
     }
 
-    if (!this.props.hover) {
-      return;
-    }
-
-    newTempRating = this.calchalfRating(newTempRating, e);
+    newTempRating = this.calcHalfRating(newTempRating, e);
     this.setState({tempRating: newTempRating})
   },
 
@@ -62,13 +72,17 @@ var RatingWidget = React.createClass({
     this.setState({tempRating: null});
   },
 
-  calchalfRating: function(newRating, e) {
+  calcHalfRating: function(newRating, e) {
+    if (!this.props.halfRating) {
+      return newRating;
+    }
+
     var stepClicked = e.target;
     var stepWidth = stepClicked.offsetWidth;
     var halfWidth = stepWidth / 2;
     var clickPos = e.pageX - stepClicked.offsetLeft;
 
-    if (clickPos <= halfWidth && this.props.halfRating) {
+    if (clickPos <= halfWidth) {
       newRating -= .5;
     }
 
@@ -76,11 +90,31 @@ var RatingWidget = React.createClass({
   },
 
   render: function () {
+    var ratingSteps = this.renderSteps();
+
+    var classes = {
+      'ddm-rating-widget': true,
+      'ddm-rating-widget--disabled': this.state.disabled
+    }
+    classes = cx(classes) + ' ' + this.props.className;
+
+    return (
+      <div className={classes} onMouseLeave={this.handleOnMouseLeave}>
+        {ratingSteps}
+      </div>
+    );
+  },
+
+  renderSteps: function() {
     var ratingSteps = [];
     var rating = this.state.tempRating || this.state.rating;
 
     var roundRating = Math.round(rating);
     var ceilRating = Math.ceil(rating);
+
+    var mouseMoveFunction = (this.state.supportsTouchEvents)
+      ? emptyFunction
+      : this.handleOnMouseMove;
 
     for (var i = 1; i <= this.props.size; i++) {
       var showWhole = i <= rating;
@@ -97,14 +131,17 @@ var RatingWidget = React.createClass({
         'ddm-rating-widget__step--half': showHalf,
         'ddm-rating-widget__step--hover': this.state.tempRating
       }
-      ratingSteps.push(<span className={React.addons.classSet(classes)} onClick={this.handleClick.bind(this, i)} onMouseMove={this.handleOnMouseMove.bind(this, i)}></span>);
+      ratingSteps.push(
+        <span
+          className={cx(classes)}
+          onClick={this.handleClick.bind(this, i)}
+          onMouseMove={mouseMoveFunction.bind(this, i)}
+          key={"rating-step-" + i}
+        ></span>
+      );
     }
 
-    return (
-      <div className="ddm-rating-widget" onMouseLeave={this.handleOnMouseLeave}>
-        {ratingSteps}
-      </div>
-    );
+    return ratingSteps;
   }
 });
 

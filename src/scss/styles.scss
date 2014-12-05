@@ -1,31 +1,37 @@
 $stepDefault: #9F9F9F;
 $stepActive: #FA9E49;
 $stepHover: #2354ac;
-$stepWidth: 16px;
+$stepSize: 16px;
+$stepSizeLarge: 27px;
+
+@mixin stepSize($size) {
+  font-size: $size;
+  width: $size;
+  height: $size;
+  line-height: $size;
+}
+
+@mixin smallScreen() {
+  @media (max-width: 736px)  {
+    @content;
+  }
+}
 
 .ddm-rating-widget {
   display: inline-block;
+  cursor: pointer;
+}
+
+.ddm-rating-widget--disabled {
+  cursor: default;
 }
 
 .ddm-rating-widget__step {
   position: relative;
   display: inline-block;
   margin-right: 2px;
-  height: 24px;
-  width: $stepWidth;
 
-  &:before {
-    content: '\2605';
-    color: $stepActive;
-    z-index: 2;
-    width: 0;
-  }
-
-  &:after {
-    content: '\2605';
-    color: $stepDefault;
-    z-index: 1;
-  }
+  @include stepSize($stepSize);
 
   &:before,
   &:after {
@@ -33,19 +39,55 @@ $stepWidth: 16px;
     left: 0;
     top: 0;
     overflow: hidden;
+    content: '\2605';
+  }
+
+  &:before {
+    color: $stepActive;
+    z-index: 10;
+    width: 0;
+  }
+
+  &:after {
+    color: $stepDefault;
+    z-index: 5;
+  }
+
+  @include smallScreen() {
+    @include stepSize($stepSizeLarge);
+
+    margin-left: 10px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .ddm-rating-widget--large & {
+    @include stepSize($stepSizeLarge);
+
+    margin-left: 10px;
+
+    &:first-child {
+      margin-left: 0;
+    }
   }
 }
 
 .ddm-rating-widget__step--hover {
   &:before {
-    color: $stepHover !important;
+    color: $stepHover;
   }
 }
 
-.ddm-rating-widget__step--whole:before {
-  width: 100%;
+.ddm-rating-widget__step--whole {
+  &:before {
+    width: 100%;
+  }
 }
 
-.ddm-rating-widget__step--half:before {
-  width: 50%;
+.ddm-rating-widget__step--half {
+  &:before {
+    width: 50%;
+  }
 }
