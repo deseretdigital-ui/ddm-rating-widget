@@ -12,21 +12,70 @@
 
   <script src="https://fb.me/react-with-addons-0.12.0.js"></script>
   <script src="https://fb.me/JSXTransformer-0.12.0.js"></script>
-  <script src="RatingStars.js"></script>
+  <script src="RatingWidget.js"></script>
 
+  <script>
+    function announceRating(rating) {
+      console.log("You got " + rating + " stars!");
+    }
+  </script>
 </head>
 <body>
 
   <h1>Rating Stars Examples</h1>
 
   <div class="example">
-    <h2>Rating Stars</h2>
-    <div id="react-example-1"></div>
+    <h2>Whole Stars</h2>
+    <div id="wholeStars"></div>
+    <p>
+      <button type="button" onClick="enableWidget('wholeStars');">Enable</button>
+      <button type="button" onClick="disableWidget('wholeStars');">Disable</button>
+    </p>
+
+    <h2>Half Stars</h2>
+    <div id="halfStars"></div>
+    <p>
+      <button type="button" onClick="enableWidget('halfStars');">Enable</button>
+      <button type="button" onClick="disableWidget('halfStars');">Disable</button>
+    </p>
+
+    <h2>No Hover Whole Stars</h2>
+    <div id="noHoverStars"></div>
+    <p>
+      <button type="button" onClick="enableWidget('noHoverStars');">Enable</button>
+      <button type="button" onClick="disableWidget('noHoverStars');">Disable</button>
+    </p>
+
     <script type="text/jsx">
-    React.render(
-      <RatingStars />,
-      document.getElementById('react-example-1')
-    );
+      React.initializeTouchEvents(true);
+      var wholeStars = React.render(
+        <RatingWidget size={5} onRate={announceRating} initialRating={2.1} />,
+        document.getElementById('wholeStars')
+      );
+
+      var halfStars = React.render(
+        <RatingWidget size={5} onRate={announceRating} initialRating={3.5} halfRating={true} />,
+        document.getElementById('halfStars')
+      );
+
+      var noHoverStars = React.render(
+        <RatingWidget size={10} onRate={announceRating} initialRating={6.5} hover={false} />,
+        document.getElementById('noHoverStars')
+      );
+
+      var widgets = {
+        'wholeStars': wholeStars,
+        'halfStars': halfStars,
+        'noHoverStars': noHoverStars
+      };
+
+      function enableWidget(widget) {
+        widgets[widget].enable();
+      }
+
+      function disableWidget(widget) {
+        widgets[widget].disable();
+      }
     </script>
   </div>
 
