@@ -19,6 +19,19 @@
       console.log("You got " + rating + " stars!");
     }
   </script>
+
+  <style>
+    .container {
+      position: relative;
+      background-color: lightgrey;
+      border: 2px solid cornflowerblue;
+      padding: 20px;
+    }
+
+    .container__inner {
+      padding: 20px;
+    }
+  </style>
 </head>
 <body>
 
@@ -46,6 +59,13 @@
       <button type="button" onClick="disableWidget('noHoverStars');">Disable</button>
     </p>
 
+    <div class="container">
+      <div class="container__inner">
+        <h2>Stars in a Container</h2>
+        <div id="containerStars"></div>
+      </div>
+    </div>
+
     <script type="text/jsx">
       React.initializeTouchEvents(true);
       var wholeStars = React.render(
@@ -61,6 +81,11 @@
       var noHoverStars = React.render(
         <RatingWidget size={10} onRate={announceRating} initialRating={6.5} hover={false} />,
         document.getElementById('noHoverStars')
+      );
+
+      var containerStars = React.render(
+        <RatingWidget size={10} onRate={announceRating} initialRating={6.5} halfRating={true} />,
+        document.getElementById('containerStars')
       );
 
       var widgets = {
