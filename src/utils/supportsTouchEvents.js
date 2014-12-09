@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = (function() {
   try {
     document.createEvent("TouchEvent");
     return true;
@@ -6,4 +6,4 @@ module.exports = function() {
   catch (e) {
     return false;
   }
-}
+})();
