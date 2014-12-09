@@ -80,7 +80,9 @@ var RatingWidget = React.createClass({
     var stepClicked = e.target;
     var stepWidth = stepClicked.offsetWidth;
     var halfWidth = stepWidth / 2;
-    var clickPos = e.pageX - stepClicked.offsetLeft;
+
+    var stepClickedRect = stepClicked.getBoundingClientRect()
+    var clickPos = e.pageX - (stepClickedRect.left + document.body.scrollLeft);
 
     if (clickPos <= halfWidth) {
       newRating -= .5;
