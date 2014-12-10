@@ -8,8 +8,8 @@ var doesSupportTouchEvents = require('../utils/supportsTouchEvents');
 var RatingWidget = React.createClass({
   propTypes: {
     size: React.PropTypes.number,
-    onRate: React.PropTypes.func,
-    startDisabled: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
+    disabled: React.PropTypes.bool,
     initialRating: React.PropTypes.number,
     halfRating: React.PropTypes.bool,
     hover: React.PropTypes.bool,
@@ -19,8 +19,8 @@ var RatingWidget = React.createClass({
   getDefaultProps: function () {
     return {
       size: 5,
-      onRate: emptyFunction,
-      startDisabled: false,
+      onChange: emptyFunction,
+      disabled: false,
       initialRating: 0,
       halfRating: false,
       hover: true,
@@ -31,21 +31,12 @@ var RatingWidget = React.createClass({
   getInitialState: function() {
     return {
       rating: this.props.initialRating,
-      tempRating: null,
-      disabled: this.props.startDisabled
+      tempRating: null
     }
   },
 
-  disable: function() {
-    this.setState({'disabled': true});
-  },
-
-  enable: function() {
-    this.setState({'disabled': false});
-  },
-
   handleClick: function(newRating, e) {
-    if (this.state.disabled) {
+    if (this.props.disabled) {
       return;
     }
 
@@ -56,13 +47,13 @@ var RatingWidget = React.createClass({
 
     this.setState({rating: newRating});
     this.setState({tempRating: null});
-    this.props.onRate(newRating);
+    this.props.onChange(newRating);
   },
 
   handleOnMouseMove: function(newTempRating, e) {
     if (
       doesSupportTouchEvents
-      || this.state.disabled
+      || this.props.disabled
       || !this.props.hover
     ) {
       return;
@@ -100,7 +91,7 @@ var RatingWidget = React.createClass({
 
     var classes = {
       'ddm-rating-widget': true,
-      'ddm-rating-widget--disabled': this.state.disabled
+      'ddm-rating-widget--disabled': this.props.disabled
     }
     classes = cx(classes) + ' ' + this.props.className;
 

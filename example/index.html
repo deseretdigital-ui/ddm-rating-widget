@@ -67,24 +67,23 @@
     </div>
 
     <script type="text/jsx">
-      React.initializeTouchEvents(true);
       var wholeStars = React.render(
-        <RatingWidget size={5} onRate={announceRating} initialRating={2.1} />,
+        <RatingWidget size={5} onChange={announceRating} initialRating={2.1} />,
         document.getElementById('wholeStars')
       );
 
       var halfStars = React.render(
-        <RatingWidget size={5} onRate={announceRating} initialRating={3.5} halfRating={true} />,
+        <RatingWidget size={5} onChange={announceRating} initialRating={3.5} halfRating={true} disabled={false} />,
         document.getElementById('halfStars')
       );
 
       var noHoverStars = React.render(
-        <RatingWidget size={10} onRate={announceRating} initialRating={6.5} hover={false} />,
+        <RatingWidget size={10} onChange={announceRating} initialRating={6.5} hover={false} />,
         document.getElementById('noHoverStars')
       );
 
       var containerStars = React.render(
-        <RatingWidget size={10} onRate={announceRating} initialRating={6.5} halfRating={true} />,
+        <RatingWidget size={10} onChange={announceRating} initialRating={6.5} halfRating={true} />,
         document.getElementById('containerStars')
       );
 
@@ -94,12 +93,14 @@
         'noHoverStars': noHoverStars
       };
 
+      // React typically prefers calling React.render instead of setProps but using
+      // setProps here allows us to make this function more reusable
       function enableWidget(widget) {
-        widgets[widget].enable();
+        widgets[widget].setProps({'disabled': false});
       }
 
       function disableWidget(widget) {
-        widgets[widget].disable();
+        widgets[widget].setProps({'disabled': true});
       }
     </script>
   </div>
