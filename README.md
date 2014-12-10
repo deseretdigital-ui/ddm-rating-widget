@@ -27,8 +27,8 @@ React.render(
 # Props
 
 * size (number) - defaults to 5
-* onRate (function) - default to an empty function
-* startDisabled (boolean) - defaults to false
+* onChange (function) - default to an empty function
+* disabled (boolean) - defaults to false
 * initialRating (number) - defaults to 0
 * halfRating (boolean) - defaults to false
 * hover (boolean) - defaults to true
@@ -40,13 +40,13 @@ Default value is five.
 
 This number controls how many rating steps display in the widget. For example, setting this to three would change the widget to only display three stars.
 
-## onRate
+## onChange
 
 Default value is an empty function.
 
 A callback function that's passed the rating selected as its first argument. This allows you to do something custom on your end when a rating is received.
 
-## startDisabled
+## disabled
 
 Default value is false.
 
@@ -75,13 +75,3 @@ This setting controls mouse over effects that fills the steps with a temporary r
 Default value is an empty string.
 
 Additional class names to be added to the rating widget.
-
-# Methods
-
-## enable
-
-Calling this method enables the widget.
-
-## disable
-
-Calling this method disables the widget.
