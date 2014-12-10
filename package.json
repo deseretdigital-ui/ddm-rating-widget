@@ -1,6 +1,6 @@
 {
   "name": "ddm-rating-widget",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A tiny React component for ratings.",
   "main": "dist/RatingWidget.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "authors": [
     "Joshua Stoutenburg <jehoshua02@gmail.com>",
     "Russell Ahlstrom",
-    "Jen Lucker",
+    "Jen Luker",
     "Kate Bratko"
   ],
   "license": "MIT",
