@@ -1,8 +1,9 @@
 var React = require('react/addons');
+var RatingStep = require('./RatingStep');
 
 var cx = React.addons.classSet;
-var supportsTouchEvents = require('../utils/supportsTouchEvents');
 var emptyFunction = function() {};
+var doesSupportTouchEvents = require('../utils/supportsTouchEvents');
 
 var RatingWidget = React.createClass({
   propTypes: {
@@ -31,8 +32,7 @@ var RatingWidget = React.createClass({
     return {
       rating: this.props.initialRating,
       tempRating: null,
-      disabled: this.props.startDisabled,
-      supportsTouchEvents: supportsTouchEvents()
+      disabled: this.props.startDisabled
     }
   },
 
@@ -60,7 +60,11 @@ var RatingWidget = React.createClass({
   },
 
   handleOnMouseMove: function(newTempRating, e) {
-    if (this.state.disabled || !this.props.hover) {
+    if (
+      doesSupportTouchEvents
+      || this.state.disabled
+      || !this.props.hover
+    ) {
       return;
     }
 
@@ -114,32 +118,28 @@ var RatingWidget = React.createClass({
     var roundRating = Math.round(rating);
     var ceilRating = Math.ceil(rating);
 
-    var mouseMoveFunction = (this.state.supportsTouchEvents)
-      ? emptyFunction
-      : this.handleOnMouseMove;
-
     for (var i = 1; i <= this.props.size; i++) {
-      var showWhole = i <= rating;
-      var showHalf =
+      var type = 'empty';
+
+      if (i <= rating) {
+        type = 'whole';
+      } else if(
         roundRating == i &&
-        rating != i &&
         roundRating == ceilRating &&
         this.props.halfRating
-      ;
-
-      var classes = {
-        'ddm-rating-widget__step': true,
-        'ddm-rating-widget__step--whole': showWhole,
-        'ddm-rating-widget__step--half': showHalf,
-        'ddm-rating-widget__step--hover': this.state.tempRating
+      ) {
+        type = 'half';
       }
+
       ratingSteps.push(
-        <span
-          className={cx(classes)}
-          onClick={this.handleClick.bind(this, i)}
-          onMouseMove={mouseMoveFunction.bind(this, i)}
+        <RatingStep
+          step={i}
+          type={type}
+          temporaryRating={this.state.tempRating !== null}
+          onClick={this.handleClick}
+          onMouseMove={this.handleOnMouseMove}
           key={"rating-step-" + i}
-        ></span>
+        />
       );
     }
 
