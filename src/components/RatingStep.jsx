@@ -31,8 +31,11 @@ var RatingStep = React.createClass({
   },
 
   render: function() {
+    var isIE = document.all && !document.addEventListener;
+
     var classes = {
       'ddm-rating-widget__step': true,
+      'ddm-rating-widget__step--ieFix': isIE,
       'ddm-rating-widget__step--hover': this.props.temporaryRating
     }
     classes['ddm-rating-widget__step--' + this.props.type] = true;

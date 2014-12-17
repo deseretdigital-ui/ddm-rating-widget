@@ -91,3 +91,21 @@ $stepSizeLarge: 27px;
     width: 50%;
   }
 }
+
+/* IE8 needs a specific font for the unicode characters to display correctly */
+.ddm-rating-widget__step--ieFix {
+  font-family: Wingdings;
+  @include stepSize(20px);
+
+  &:before,
+  &:after {
+    content: '\00AB';
+  }
+
+  &.ddm-rating-widget__step--whole,
+  &.ddm-rating-widget__step--half {
+    &:after {
+      width: 0%;
+    }
+  }
+}
