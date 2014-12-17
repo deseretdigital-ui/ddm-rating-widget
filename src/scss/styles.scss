@@ -105,7 +105,13 @@ $stepSizeLarge: 27px;
   &.ddm-rating-widget__step--whole,
   &.ddm-rating-widget__step--half {
     &:after {
-      width: 0%;
+      width: 0;
+    }
+
+    &.ddm-rating-widget__step--hover {
+      &:after {
+        width: 0;
+      }
     }
   }
 }
