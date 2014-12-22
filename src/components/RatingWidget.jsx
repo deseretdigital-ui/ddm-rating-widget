@@ -15,6 +15,8 @@ var RatingWidget = React.createClass({
     hover: React.PropTypes.bool,
     className: React.PropTypes.string
   },
+  mouseLastX: 0,
+  mouseLastY: 0,
 
   getDefaultProps: function () {
     return {
@@ -58,6 +60,17 @@ var RatingWidget = React.createClass({
     ) {
       return;
     }
+
+    // Make sure the mouse has really moved. IE8 thinks the mouse is
+    // always moving
+    if (
+      e.clientX == this.mouseLastX &&
+      e.clientY == this.mouseLastY
+    ) {
+      return;
+    }
+    this.mouseLastX = e.clientX;
+    this.mouseLastY = e.clientY;
 
     newTempRating = this.calcHalfRating(newTempRating, e);
     this.setState({tempRating: newTempRating})

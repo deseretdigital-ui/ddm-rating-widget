@@ -15,6 +15,10 @@ module.exports = {
           'autoprefixer-loader?{browsers:["last 2 version", "> 1%", "ie 8"]}',
           'sass-loader'
         ]
+      },
+      {
+        test: /\.svg|\.png|\.gif|\.jpe?g$/,
+        loader: 'url-loader?limit=1000'
       }
     ]
   },

@@ -33,26 +33,6 @@ $stepSizeLarge: 27px;
 
   @include stepSize($stepSize);
 
-  &:before,
-  &:after {
-    position: absolute;
-    left: 0;
-    top: 0;
-    overflow: hidden;
-    content: '\2605';
-  }
-
-  &:before {
-    color: $stepActive;
-    z-index: 10;
-    width: 0;
-  }
-
-  &:after {
-    color: $stepDefault;
-    z-index: 5;
-  }
-
   @include smallScreen() {
     @include stepSize($stepSizeLarge);
 
@@ -74,6 +54,28 @@ $stepSizeLarge: 27px;
   }
 }
 
+.ddm-rating-widget__step--css {
+  &:before,
+  &:after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    content: '\2605';
+  }
+
+  &:before {
+    color: $stepActive;
+    z-index: 10;
+    width: 0;
+  }
+
+  &:after {
+    color: $stepDefault;
+    z-index: 5;
+  }
+}
+
 .ddm-rating-widget__step--hover {
   &:before {
     color: $stepHover;
@@ -89,29 +91,5 @@ $stepSizeLarge: 27px;
 .ddm-rating-widget__step--half {
   &:before {
     width: 50%;
-  }
-}
-
-/* IE8 needs a specific font for the unicode characters to display correctly */
-.ddm-rating-widget__step--ieFix {
-  font-family: Wingdings;
-  @include stepSize(20px);
-
-  &:before,
-  &:after {
-    content: '\00AB';
-  }
-
-  &.ddm-rating-widget__step--whole,
-  &.ddm-rating-widget__step--half {
-    &:after {
-      width: 0;
-    }
-
-    &.ddm-rating-widget__step--hover {
-      &:after {
-        width: 0;
-      }
-    }
   }
 }
